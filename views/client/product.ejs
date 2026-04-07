@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+<div class="card">
+    <h1><%= product.name %></h1>
+    <p><%= product.description %></p>
+    <h2>Cena: <%= product.price %> PLN</h2>
+    <% if (user && user.role === 'client') { %>
+        <form action="/client/cart/add/<%= product._id %>" method="POST">
+            <button type="submit">Dodaj do koszyka</button>
+        </form>
+    <% } %>
+</div>
+
+<div class="card">
+    <h3>Opinie</h3>
+    <% if (product.reviews.length === 0) { %>
+        <p>Brak opinii o tym produkcie.</p>
+    <% } %>
+    <% product.reviews.forEach(r => { %>
+        <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+            <strong><%= r.user %></strong> — Ocena: <%= r.rating %>/5
+            <p><%= r.comment %></p>
+        </div>
+    <% }) %>
+
+    <% if (user && user.role === 'client') { %>
+        <hr>
+        <% if (hasReviewed) { %>
+            <p style="color: #28a745; font-weight: bold;">Już oceniłeś ten produkt. Dziękujemy!</p>
+        <% } else { %>
+            <h4>Dodaj swoją opinię</h4>
+            <form action="/client/review/<%= product._id %>" method="POST">
+                <select name="rating">
+                    <option value="5">5 gwiazdek</option>
+                    <option value="4">4 gwiazdki</option>
+                    <option value="3">3 gwiazdki</option>
+                    <option value="2">2 gwiazdki</option>
+                    <option value="1">1 gwiazdka</option>
+                </select>
+                <textarea name="comment" placeholder="Napisz co sądzisz..." required></textarea>
+                <button type="submit">Wyślij opinię</button>
+            </form>
+        <% } %>
+    <% } %>
+</div>
+<%- include('../partials/footer') %>

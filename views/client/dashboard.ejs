@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+<div class="card">
+    <form action="/client/products" method="GET" style="display: flex; gap: 10px;">
+        <input type="text" name="search" placeholder="Czego szukasz?">
+        <input type="text" name="category" placeholder="Kategoria">
+        <select name="sort">
+            <option value="asc">Najtańsze</option>
+            <option value="desc">Najdroższe</option>
+        </select>
+        <button type="submit">Szukaj</button>
+    </form>
+</div>
+<div class="grid">
+    <% products.forEach(p => { %>
+        <div class="card">
+            <h3><%= p.name %></h3>
+            <p><strong><%= p.price %> PLN</strong></p>
+            <p>Kategoria: <%= p.category %></p>
+            <a href="/client/product/<%= p._id %>"><button style="background: #28a745;">Szczegóły</button></a>
+        </div>
+    <% }) %>
+</div>
+<%- include('../partials/footer') %>

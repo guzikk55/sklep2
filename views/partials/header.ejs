@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Aukcje</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+        nav { background: #333; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: white; text-decoration: none; margin-left: 1rem; }
+        .container { padding: 2rem; max-width: 1200px; margin: auto; }
+        .card { background: white; padding: 1rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        button { cursor: pointer; background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; }
+        input, select, textarea { padding: 0.5rem; margin: 0.5rem 0; width: 100%; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/" style="font-weight: bold; font-size: 1.2rem;">PORTAL AUKCYJNY</a>
+    <div>
+        <% if (user) { %>
+            <span><%= user.username %> (<%= user.role %>)</span>
+            <% if (user.role === 'client') { %>
+                <a href="/client/products">Produkty</a>
+                <a href="/client/cart">Koszyk (<%= cart.length %>)</a>
+            <% } else { %>
+                <a href="/seller/dashboard">Moje Oferty</a>
+                <a href="/seller/orders">Zamówienia</a>
+            <% } %>
+            <a href="/auth/logout" style="color: #ff4444;">Wyloguj</a>
+        <% } else { %>
+            <a href="/auth/login">Zaloguj</a>
+            <a href="/auth/register">Rejestracja</a>
+        <% } %>
+    </div>
+</nav>
+<div class="container">

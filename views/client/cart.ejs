@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+<h2>Twój koszyk</h2>
+<% if (products.length > 0) { %>
+    <% products.forEach((p, index) => { %>
+        <div class="card" style="display: flex; justify-content: space-between;">
+            <span><%= p.name %> - <%= p.price %> PLN</span>
+            <form action="/client/cart/remove/<%= index %>" method="POST">
+                <button style="background: #dc3545;">Usuń</button>
+            </form>
+        </div>
+    <% }) %>
+    <div class="card">
+        <h3>Suma: <%= products.reduce((s, p) => s + p.price, 0) %> PLN</h3>
+        <form action="/client/order" method="POST">
+            <button style="width: 100%; font-size: 1.2rem; background: #28a745;">Złóż zamówienie</button>
+        </form>
+    </div>
+<% } else { %>
+    <p>Koszyk jest pusty.</p>
+<% } %>
+<%- include('../partials/footer') %>

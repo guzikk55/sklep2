@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Moje Aukcje</h2>
+    <a href="/seller/add"><button style="background: #28a745;">+ Dodaj produkt</button></a>
+</div>
+<div class="grid">
+    <% products.forEach(p => { %>
+        <div class="card">
+            <h3><%= p.name %></h3>
+            <p><%= p.price %> PLN</p>
+            <div style="display: flex; gap: 5px;">
+                <a href="/seller/edit/<%= p._id %>"><button>Edytuj</button></a>
+                <form action="/seller/delete/<%= p._id %>?_method=DELETE" method="POST">
+                    <button style="background: #dc3545;">Usuń</button>
+                </form>
+            </div>
+        </div>
+    <% }) %>
+</div>
+<%- include('../partials/footer') %>

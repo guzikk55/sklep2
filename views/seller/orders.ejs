@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+<div class="container">
+    <h2>Zamówienia Twoich produktów</h2>
+    <% if (orders.length === 0) { %>
+        <div class="card">Brak zamówień do wyświetlenia.</div>
+    <% } else { %>
+        <% orders.forEach(o => { %>
+            <div class="card" style="border-left: 5px solid #007bff;">
+                <p><strong>ID Zamówienia:</strong> <%= o._id %></p>
+                <p><strong>Klient:</strong> <%= o.client ? o.client.username : 'Nieznany' %></p>
+                <p><strong>Data:</strong> <%= o.date.toLocaleString() %></p>
+                <hr>
+                <ul>
+                    <% o.productDetails.filter(p => p.seller.toString() === user.id).forEach(p => { %>
+                        <li><strong><%= p.name %></strong> — <%= p.price %> PLN</li>
+                    <% }) %>
+                </ul>
+                <p><strong>Status:</strong> Opłacone / Do wysyłki</p>
+            </div>
+        <% }) %>
+    <% } %>
+    <br>
+    <a href="/seller/dashboard"><button>Powrót do panelu</button></a>
+</div>
+<%- include('../partials/footer') %>

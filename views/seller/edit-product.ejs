@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+<div class="card" style="max-width: 600px; margin: auto;">
+    <h2>Edytuj Produkt</h2>
+    <form action="/seller/edit/<%= product._id %>?_method=PUT" method="POST">
+        <label>Nazwa:</label>
+        <input type="text" name="name" value="<%= product.name %>" required>
+        <label>Cena:</label>
+        <input type="number" name="price" value="<%= product.price %>" required>
+        <label>Kategoria:</label>
+        <input type="text" name="category" value="<%= product.category %>">
+        <label>Opis:</label>
+        <textarea name="description"><%= product.description %></textarea>
+        <button type="submit" style="width: 100%; margin-top: 10px;">Zapisz zmiany</button>
+    </form>
+    <a href="/seller/dashboard">Anuluj</a>
+</div>
+<%- include('../partials/footer') %>
